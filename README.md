@@ -1,4 +1,4 @@
-# A disassembler separated from Spike
+# A risc-v disassembler separated from Spike
 Spike: https://github.com/riscv-software-src/riscv-isa-sim
 ## Get Started
 ```
