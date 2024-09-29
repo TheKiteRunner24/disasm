@@ -8,7 +8,7 @@ cd build
 cmake ..
 make -j
 
-./disasm ../insn.txt
+./disasm insn(hexadecimal or decimal)
 ```
 ## How to set ISA
 change `DEFAULT_ISA` in `config.h`
