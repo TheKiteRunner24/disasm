@@ -9,7 +9,12 @@
 int main(int argc, char* argv[]) {
     std::ifstream infile(argv[1]);
     if (!infile) {
-        std::cerr << "Error opening file!" << std::endl;
+        std::cerr << "Error opening input file!" << std::endl;
+        return 1;
+    }
+    std::ofstream outfile(argv[2]);
+    if (!outfile) {
+        std::cerr << "Error opening output file!" << std::endl;
         return 1;
     }
 
@@ -30,19 +35,17 @@ int main(int argc, char* argv[]) {
     
         std::string disasm  = disassembler->disassemble(insn);
 
-        if (disasm == "unknown") {
-            printf("invalid instruction\n");
-        } else {
-            printf("%s\n", disasm.c_str());
-        }
+        outfile << disasm << std::endl;
     }
     delete disassembler;
+    infile.close();
+    outfile.close();
     return 0;
 }
 #else
 int main(int argc, char* argv[]) {
     if (argc != 2) {
-        std::cerr << "Usage: " << argv[0] << " <instruction_in_hex>" << std::endl;
+        std::cerr << "Usage: " << argv[0] << "instruction" << std::endl;
         return 1;
     }
     char* end;
@@ -60,11 +63,7 @@ int main(int argc, char* argv[]) {
 
     std::string disasm = disassembler->disassemble(insn);
 
-    if (disasm == "unknown") {
-        std::cout << "Invalid instruction" << std::endl;
-    } else {
-        std::cout << disasm << std::endl;
-    }
+    std::cout << disasm << std::endl;
 
     delete disassembler;
     return 0;
